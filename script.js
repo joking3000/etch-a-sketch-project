@@ -1,5 +1,5 @@
 const sketchBoard = document.querySelector(".container");
-const resetButton = document.querySelector(".reset")
+const resetButton = document.querySelector("button.reset")
 const resizeButton = document.querySelector("button.resize")
 const resizeInput = document.querySelector("input.resize")
 const paintButtonSolid = document.querySelector("button.solid")

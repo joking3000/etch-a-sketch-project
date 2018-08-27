@@ -42,3 +42,26 @@ button.selected {
   border: none;
   border-radius: 2px;
 }
+
+.controls {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  height: 70px;
+  margin: 5px 0;
+  justify-content: center;
+  align-content: baseline;
+  align-items: center;
+  width: 100%;
+}
+
+.controls div {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+
+.reset .confirm {
+  opacity: .2;
+}
