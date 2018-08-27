@@ -2,6 +2,10 @@ const sketchBoard = document.querySelector(".container");
 const resetButton = document.querySelector(".reset")
 const resizeButton = document.querySelector("button.resize")
 const resizeInput = document.querySelector("input.resize")
+const paintButtonSolid = document.querySelector("button.solid")
+const paintButtonGradual = document.querySelector("button.gradual")
+
+let paintModeSolid = true;
 
 function createGrid(numberOfTiles) {
   sketchBoard.innerHTML = ""
@@ -35,15 +39,37 @@ function setBoardSize() {
 
 function paintTiles(e) {
   if (e.target.classList.contains("tile")) {
-    e.target.classList.add("painted");
+    if (paintModeSolid) {
+      e.target.style = ""
+      e.target.classList.add("painted");
+    } else if (paintModeSolid === false) {
+      let background = window.getComputedStyle(e.target).getPropertyValue("background-color");
+      e.target.style.backgroundColor = rgbIncrement(background)
+
+      let border = window.getComputedStyle(e.target).getPropertyValue("border-bottom-color");
+      e.target.style.borderColor = rgbIncrement(border)
+    }
   }
+}
+function rgbIncrement(rgbString) {
+  let rgb = rgbString.split(/[,()]/);
+  if (rgb[0] === "rgb") {
+    console.log("return");
+    return false;
+  }
+  let alpha = Number(rgb[4]) + 0.1
+  rgb[4] = alpha;
+  return `rgba(${rgb[1]},${rgb[2]},${rgb[3]},${rgb[4]})`
 }
 
 function resetGrid() {
   let confirmation = confirm("You are about to delete your work\n Are you sure this is OK?")
   if (confirmation) {
     let tiles = [...document.querySelectorAll(".tile")];
-    tiles.forEach(tile => tile.classList.remove("painted"));
+    tiles.forEach(tile => {
+      tile.classList.remove("painted");
+      tile.style = "";
+    });
   }
 }
 
@@ -57,10 +83,25 @@ function resizeGrid() {
   resizeInput.value = "";
 }
 
+function togglePaintMode(e) {
+  if (e.target.classList.contains("selected")) return;
+  if (e.target.classList.contains("solid")) {
+    paintModeSolid = true;
+    paintButtonGradual.classList.remove("selected")
+    e.target.classList.add("selected")
+  } else if (e.target.classList.contains("gradual")) {
+    paintModeSolid = false;
+    paintButtonSolid.classList.remove("selected")
+    e.target.classList.add("selected")
+  }
+}
+
 setBoardSize();
 createGrid(20);
 
 window.addEventListener("resize", setBoardSize);
 sketchBoard.addEventListener("mouseover", paintTiles);
 resetButton.addEventListener("click", resetGrid);
-resizeButton.addEventListener("click", resizeGrid)
+resizeButton.addEventListener("click", resizeGrid);
+paintButtonSolid.addEventListener("click", togglePaintMode);
+paintButtonGradual.addEventListener("click", togglePaintMode);
