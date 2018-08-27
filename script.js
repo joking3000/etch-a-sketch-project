@@ -1,11 +1,11 @@
-sketchBoard = document.querySelector(".container");
+const sketchBoard = document.querySelector(".container");
 
 function createGrid(numberOfTiles) {
   for (let rowI = 0; rowI < numberOfTiles; rowI++) {
-    tileRow = []
+    let tileRow = []
     for (let colI = 0; colI < numberOfTiles; colI++) {
       tile = document.createElement("div")
-      tile.classList.add("tile", `row${rowI}`, `col${colI}`)
+      tile.classList.add("tile")
       tileRow.push(tile);
     }
     tileRow.forEach(tile => sketchBoard.appendChild(tile));
@@ -29,8 +29,14 @@ function setBoardSize() {
   }
 }
 
+function paintTiles(e) {
+  if (e.target.classList.contains("tile")) {
+    e.target.classList.add("painted");
+  }
+}
 
 setBoardSize();
 createGrid(16);
 
-window.addEventListener("resize", setBoardSize)
+window.addEventListener("resize", setBoardSize);
+sketchBoard.addEventListener("mouseover", paintTiles);
