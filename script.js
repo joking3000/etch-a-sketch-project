@@ -1,4 +1,5 @@
 const sketchBoard = document.querySelector(".container");
+const resetButton = document.querySelector(".reset")
 
 function createGrid(numberOfTiles) {
   for (let rowI = 0; rowI < numberOfTiles; rowI++) {
@@ -35,8 +36,17 @@ function paintTiles(e) {
   }
 }
 
+function resetGrid() {
+  confirmation = confirm("You are about to delete your work\n Are you sure this is OK?")
+  if (confirmation) {
+    let tiles = [...document.querySelectorAll(".tile")];
+    tiles.forEach(tile => tile.classList.remove("painted"));
+  }
+}
+
 setBoardSize();
-createGrid(16);
+createGrid(20);
 
 window.addEventListener("resize", setBoardSize);
 sketchBoard.addEventListener("mouseover", paintTiles);
+resetButton.addEventListener("click", resetGrid);
