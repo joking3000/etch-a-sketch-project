@@ -9,12 +9,12 @@ html, body, html body * {
   height: 100%;
   position: absolute;
   padding: 10%;
+  display: grid;
+  grid-template: repeat(16, 1fr)/ repeat(16, 1fr);
+  grid-gap: 1px;
 }
 
 .tile {
-  border: 1px solid white;
-  height: 5px;
-  width: 5px;
   background-color: red;
   display: inline-block;
 }
