@@ -65,3 +65,11 @@ button.selected {
 .reset .confirm {
   opacity: .2;
 }
+
+.container.precise {
+  grid-gap: 0;
+}
+.tile.precise {
+  border-radius: 0;
+  /* border: none; */
+}

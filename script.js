@@ -1,11 +1,13 @@
 const sketchBoard = document.querySelector(".container");
-const resetButton = document.querySelector("button.reset")
-const resizeButton = document.querySelector("button.resize")
-const resizeInput = document.querySelector("input.resize")
-const paintButtonSolid = document.querySelector("button.solid")
-const paintButtonGradual = document.querySelector("button.gradual")
+const resetButton = document.querySelector("button.reset");
+const resizeButton = document.querySelector("button.resize");
+const resizeInput = document.querySelector("input.resize");
+const paintButtonSolid = document.querySelector("button.solid");
+const paintButtonGradual = document.querySelector("button.gradual");
+const precisionButton = document.querySelector("button.accuracy");
 
 let paintModeSolid = true;
+let paintPrecision = false;
 
 function createGrid(numberOfTiles) {
   sketchBoard.innerHTML = ""
@@ -14,6 +16,7 @@ function createGrid(numberOfTiles) {
     for (let colI = 0; colI < numberOfTiles; colI++) {
       tile = document.createElement("div")
       tile.classList.add("tile")
+      if (paintPrecision) tile.classList.add("precise");
       tileRow.push(tile);
     }
     tileRow.forEach(tile => sketchBoard.appendChild(tile));
@@ -96,6 +99,21 @@ function togglePaintMode(e) {
   }
 }
 
+function togglePaintPrecision() {
+  tiles = [...document.querySelectorAll(".tile")]
+  if (paintPrecision) {
+    paintPrecision = false;
+    sketchBoard.classList.remove("precise");
+    precisionButton.innerHTML = "Increase<br>Painting Precision"
+    tiles.forEach(tile => tile.classList.remove("precise"));
+  } else {
+    paintPrecision = true;
+    sketchBoard.classList.add("precise");
+    precisionButton.innerHTML = "Aesthetic<br>Grid Look"
+    tiles.forEach(tile => tile.classList.add("precise"));
+  }
+}
+
 setBoardSize();
 createGrid(20);
 
@@ -105,3 +123,5 @@ resetButton.addEventListener("click", resetGrid);
 resizeButton.addEventListener("click", resizeGrid);
 paintButtonSolid.addEventListener("click", togglePaintMode);
 paintButtonGradual.addEventListener("click", togglePaintMode);
+
+precisionButton.addEventListener("click", togglePaintPrecision);
