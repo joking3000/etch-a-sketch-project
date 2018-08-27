@@ -1,7 +1,10 @@
 const sketchBoard = document.querySelector(".container");
 const resetButton = document.querySelector(".reset")
+const resizeButton = document.querySelector("button.resize")
+const resizeInput = document.querySelector("input.resize")
 
 function createGrid(numberOfTiles) {
+  sketchBoard.innerHTML = ""
   for (let rowI = 0; rowI < numberOfTiles; rowI++) {
     let tileRow = []
     for (let colI = 0; colI < numberOfTiles; colI++) {
@@ -37,11 +40,21 @@ function paintTiles(e) {
 }
 
 function resetGrid() {
-  confirmation = confirm("You are about to delete your work\n Are you sure this is OK?")
+  let confirmation = confirm("You are about to delete your work\n Are you sure this is OK?")
   if (confirmation) {
     let tiles = [...document.querySelectorAll(".tile")];
     tiles.forEach(tile => tile.classList.remove("painted"));
   }
+}
+
+function resizeGrid() {
+  let newSize = Number(resizeInput.value);
+  if (!(newSize >= 8 && newSize <= 64)) {
+    alert("That is not a valid input\nEnter a number between 8 - 64");
+    return;
+  }
+  createGrid(newSize);
+  resizeInput.value = "";
 }
 
 setBoardSize();
@@ -50,3 +63,4 @@ createGrid(20);
 window.addEventListener("resize", setBoardSize);
 sketchBoard.addEventListener("mouseover", paintTiles);
 resetButton.addEventListener("click", resetGrid);
+resizeButton.addEventListener("click", resizeGrid)
