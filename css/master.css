@@ -50,9 +50,10 @@ html, body, .centering-device {
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.42);
 }
 
-button.selected {
+.controls div button.selected {
   background-color: rgb(64, 64, 64);
   color: rgb(255, 255, 255);
+  text-shadow: none;
 }
 
 .controls {
@@ -135,4 +136,11 @@ div button {
 div input {
   height: 24px;
   margin: 1px 2px;
+}
+
+div button:hover {
+  color: rgba(0, 0, 0, 0.89);
+  background-color: rgba(208, 206, 206, 1);
+  text-shadow: 0 0 2px rgb(249, 250, 219);
+  border: 1px solid rgba(62, 62, 62, 0.78);
 }
