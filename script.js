@@ -85,6 +85,7 @@ function resizeGrid() {
   createGrid(newSize);
   resizeInput.value = "";
 }
+function handleResize(e) {if (e.key === "Enter") resizeGrid()}
 
 function togglePaintMode(e) {
   if (e.target.classList.contains("selected")) return;
@@ -109,7 +110,7 @@ function togglePaintPrecision() {
   } else {
     paintPrecision = true;
     sketchBoard.classList.add("precise");
-    precisionButton.innerHTML = "Aesthetic<br>Grid Look"
+    precisionButton.innerHTML = "More Aesthetic<br>Grid Look"
     tiles.forEach(tile => tile.classList.add("precise"));
   }
 }
@@ -121,6 +122,7 @@ window.addEventListener("resize", setBoardSize);
 sketchBoard.addEventListener("mouseover", paintTiles);
 resetButton.addEventListener("click", resetGrid);
 resizeButton.addEventListener("click", resizeGrid);
+resizeInput.addEventListener("keypress", handleResize);
 paintButtonSolid.addEventListener("click", togglePaintMode);
 paintButtonGradual.addEventListener("click", togglePaintMode);
 
