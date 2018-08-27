@@ -1,5 +1,6 @@
 const sketchBoard = document.querySelector(".container");
 const resetButton = document.querySelector("button.reset");
+const resetConfirmButton = document.querySelector("button.confirm")
 const resizeButton = document.querySelector("button.resize");
 const resizeInput = document.querySelector("input.resize");
 const paintButtonSolid = document.querySelector("button.solid");
@@ -8,6 +9,7 @@ const precisionButton = document.querySelector("button.accuracy");
 
 let paintModeSolid = true;
 let paintPrecision = false;
+// let resetArmed = false;
 
 function createGrid(numberOfTiles) {
   sketchBoard.innerHTML = ""
@@ -65,15 +67,23 @@ function rgbIncrement(rgbString) {
   return `rgba(${rgb[1]},${rgb[2]},${rgb[3]},${rgb[4]})`
 }
 
-function resetGrid() {
-  let confirmation = confirm("You are about to delete your work\n Are you sure this is OK?")
+function resetArm() {
+  let confirmation = confirm("You are about to delete all you work\n" +
+                             "If this is intentional, click the confirm button,\n" +
+                             "which will appear beneath the reset button you just clicked")
   if (confirmation) {
-    let tiles = [...document.querySelectorAll(".tile")];
-    tiles.forEach(tile => {
-      tile.classList.remove("painted");
-      tile.style = "";
-    });
+    resetConfirmButton.classList.add("visible")
+    resetConfirmButton.addEventListener("click", resetGrid)
   }
+}
+function resetGrid() {
+  let tiles = [...document.querySelectorAll(".tile")];
+  tiles.forEach(tile => {
+    tile.classList.remove("painted");
+    tile.style = "";
+  });
+  resetConfirmButton.classList.remove("visible")
+  resetConfirmButton.removeEventListener("click", resetGrid)
 }
 
 function resizeGrid() {
@@ -120,9 +130,12 @@ createGrid(20);
 
 window.addEventListener("resize", setBoardSize);
 sketchBoard.addEventListener("mouseover", paintTiles);
-resetButton.addEventListener("click", resetGrid);
+
+resetButton.addEventListener("click", resetArm);
+
 resizeButton.addEventListener("click", resizeGrid);
 resizeInput.addEventListener("keypress", handleResize);
+
 paintButtonSolid.addEventListener("click", togglePaintMode);
 paintButtonGradual.addEventListener("click", togglePaintMode);
 

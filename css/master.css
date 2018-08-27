@@ -63,7 +63,11 @@ button.selected {
 }
 
 .reset .confirm {
-  opacity: .2;
+  opacity: 0;
+  transition: all .4s ease;
+}
+.reset .confirm.visible{
+  opacity: 1;
 }
 
 .container.precise {
