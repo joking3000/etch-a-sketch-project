@@ -10,6 +10,11 @@ function createGrid(numberOfTiles) {
     }
     tileRow.forEach(tile => sketchBoard.appendChild(tile));
   }
+  styleGrid(numberOfTiles);
+}
+
+function styleGrid(gridSize) {
+  sketchBoard.style.gridTemplate = `repeat(${gridSize}, 1fr) / repeat(${gridSize}, 1fr)`
 }
 
 createGrid(16);
