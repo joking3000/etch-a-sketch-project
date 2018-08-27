@@ -1,12 +1,27 @@
+/* latin */
+@font-face {
+  font-family: 'uni553';
+  src: local('uni 05_53'), local('uni05-53');
+  src: url("../fonts/uni0553/uni0553-webfont.eot");
+  src: url("../fonts/uni0553/uni0553-webfont.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/uni0553/uni0553-webfont.woff") format("woff"),
+       url("../fonts/uni0553/uni0553-webfont.ttf") format("truetype");
+}
+
+
+
 html, body, html body * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: uni553, monospace;
+  font-size: 0.9rem;
 }
 
 html, body, .centering-device {
   width: 100%;
   height: 100%;
+  perspective: 1000px;
 }
 
 .centering-device {
@@ -38,28 +53,55 @@ html, body, .centering-device {
 button.selected {
   background-color: rgb(64, 64, 64);
   color: rgb(255, 255, 255);
-  padding: 0 5px 2px;
-  border: none;
-  border-radius: 2px;
 }
 
 .controls {
   position: absolute;
   z-index: 2;
   display: flex;
-  height: 70px;
-  margin: 5px 0;
+  height: 75px;
+  margin-bottom: 5px;
+  padding-top: 5px;
   justify-content: center;
   align-content: baseline;
   align-items: center;
-  width: 100%;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  background-color: rgba(0, 0, 0, 0.25);
+  opacity: .4;
+  transform: rotateX(-35deg) translateY(-5px);
+  transition: opacity .4s ease, transform .2s;
+  border-radius: 0 0 5px 5px;
+}
+
+.controls:hover {
+  opacity: 1;
+  transform: rotateX(0) translateY(0);
 }
 
 .controls div {
  display: flex;
  flex-direction: column;
  justify-content: center;
- align-items: center;
+ align-items: stretch;
+}
+
+.controls * {
+  flex-basis: 145px;
+  flex-shrink: 2;
+}
+.controls div * {
+  flex-basis: auto;
+}
+.controls div.resize {
+  flex-shrink: 12;
+}
+.controls div.reset {
+  flex-shrink: 8;
+}
+.controls button.accuracy {
+  flex-shrink: 4;
 }
 
 .reset .confirm {
@@ -76,4 +118,21 @@ button.selected {
 .tile.precise {
   border-radius: 0;
   /* border: none; */
+}
+
+input.resize {
+  align-self: center;
+}
+
+div button {
+  background-color: rgba(255, 255, 255, 0.86);
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.41);
+  min-height: 24px;
+  margin: 1px 2px;
+}
+div input {
+  height: 24px;
+  margin: 1px 2px;
 }
